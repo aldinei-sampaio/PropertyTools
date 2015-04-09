@@ -612,6 +612,16 @@ namespace PropertyTools.Wpf
             var parentItem = this.itemToParentMap[item];
             if (parentItem == null)
             {
+                // The item is a root node, look for it on root collection
+                var e = this.HierarchySource.GetEnumerator();
+                while (e.MoveNext()) {
+                    if (e.Current == item)
+                    {
+                        // Found the node, return the next if available
+                        return e.MoveNext() ? e.Current : null;
+                    }
+                }
+
                 return null;
             }
 
